@@ -1,6 +1,20 @@
 
-#ifndef Cipher_Cipher_h
-#define Cipher_Cipher_h
+#ifndef CIPHER_ALGORITHM_CIPHER_H_
+#define CIPHER_ALGORITHM_CIPHER_H_
+
+// STD.
+#include <string>
 
 
-#endif
+class Cipher
+{
+public:
+    virtual ~Cipher() {}
+    
+    virtual std::string encrypt(const std::string& message) = 0;
+    virtual std::string decrypt(const std::string& message) = 0;
+    
+};
+
+
+#endif // CIPHER_ALGORITHM_CIPHER_H_

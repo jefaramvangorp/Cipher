@@ -1,14 +1,26 @@
-//
-//  VigenereCipher.h
-//  Cipher
-//
-//  Created by Jef-Aram Van Gorp on 08/02/15.
-//  Copyright (c) 2015 Jef-Aram Van Gorp. All rights reserved.
-//
 
-#ifndef __Cipher__VigenereCipher__
-#define __Cipher__VigenereCipher__
+#ifndef CIPHER_ALGORITHM_VIGENERECIPHERE_H_
+#define CIPHER_ALGORITHM_VIGENERECIPHERE_H_
 
-#include <stdio.h>
+// Includes.
+#include "Cipher.h"
 
-#endif /* defined(__Cipher__VigenereCipher__) */
+class VigenereCipher : public Cipher
+{
+    
+public:
+    
+    VigenereCipher(const std::string& key);
+    virtual ~VigenereCipher();
+    
+    virtual std::string encrypt(const std::string& message);
+    virtual std::string decrypt(const std::string& message);
+
+private:
+    
+    std::string key;
+    const char* table;
+    
+};
+
+#endif // CIPHER_ALGORITHM_VIGENERECIPHERE_H_

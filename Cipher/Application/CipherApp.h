@@ -1,14 +1,28 @@
-//
-//  CipherApp.h
-//  Cipher
-//
-//  Created by Jef-Aram Van Gorp on 09/02/15.
-//  Copyright (c) 2015 Jef-Aram Van Gorp. All rights reserved.
-//
 
-#ifndef __Cipher__CipherApp__
-#define __Cipher__CipherApp__
+#ifndef CIPHER_APPLICATION_CIPHERAPP_H_
+#define CIPHER_APPLICATION_CIPHERAPP_H_
 
-#include <stdio.h>
+// STD.
+#include <string>
 
-#endif /* defined(__Cipher__CipherApp__) */
+// Forward declarations.
+class UI;
+
+class CipherApp
+{
+public:
+    
+    CipherApp(UI* ui);
+    
+    void execute(const std::string& action);
+    void showHelp() const;
+    
+private:
+    
+    void encrypt();
+    void decrypt();
+    
+    UI* ui;
+};
+
+#endif // CIPHER_APPLICATION_CIPHERAPP_H_

@@ -1,14 +1,17 @@
-//
-//  FileIO.h
-//  Cipher
-//
-//  Created by Jef-Aram Van Gorp on 10/02/15.
-//  Copyright (c) 2015 Jef-Aram Van Gorp. All rights reserved.
-//
 
-#ifndef __Cipher__FileIO__
-#define __Cipher__FileIO__
+#ifndef CIPHER_IO_FILEIO_H_
+#define CIPHER_IO_FILEIO_H_
 
-#include <stdio.h>
+// STD.
+#include <string>
 
-#endif /* defined(__Cipher__FileIO__) */
+class FileIO
+{
+public:
+    
+    static void readTextFile(const std::string& fileName, std::string* text);
+    static void writeTextFile(const std::string& fileName, const std::string& text);
+    
+};
+
+#endif // CIPHER_IO_FILEIO_H_

@@ -1,6 +1,6 @@
 
-#ifndef CIPHER_UI_H_
-#define CIPHER_UI_H_
+#ifndef CIPHER_UI_UI_H_
+#define CIPHER_UI_UI_H_
 
 // STD.
 #include <string>
@@ -14,4 +14,4 @@ public:
     virtual std::string getTextFromUser(const std::string& message) = 0;
 };
 
-#endif // CIPHER_UI_H_
+#endif // CIPHER_UI_UI_H_

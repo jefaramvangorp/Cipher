@@ -8,7 +8,7 @@
 #include <iostream>
 
 
-void FileIO::readTextFile(const std::string& fileName, std::string* text)
+bool FileIO::readTextFile(const std::string& fileName, std::string* text)
 {
     std::ifstream in(fileName);
     if (in.is_open())
@@ -23,23 +23,25 @@ void FileIO::readTextFile(const std::string& fileName, std::string* text)
         
         (*text) = stream.str();
         in.close();
+        return true;
     }
     else
     {
-        fprintf(stderr, "Could not open file: %s\n", fileName.c_str());
+        return false;
     }
 }
 
-void FileIO::writeTextFile(const std::string& fileName, const std::string& text)
+bool FileIO::writeTextFile(const std::string& fileName, const std::string& text)
 {
     std::ofstream out(fileName);
     if (out.is_open())
     {
         out << text;
         out.close();
+        return true;
     }
     else
     {
-        fprintf(stderr, "Could not open file: %s\n", fileName.c_str());
+        return false;
     }
 }

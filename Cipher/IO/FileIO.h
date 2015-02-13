@@ -7,10 +7,11 @@
 
 class FileIO
 {
+    
 public:
     
-    static void readTextFile(const std::string& fileName, std::string* text);
-    static void writeTextFile(const std::string& fileName, const std::string& text);
+    static bool readTextFile(const std::string& fileName, std::string* text);
+    static bool writeTextFile(const std::string& fileName, const std::string& text);
     
 };
 

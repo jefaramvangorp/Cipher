@@ -11,13 +11,13 @@ CipherApp::CipherApp(UI* ui)
     
 }
 
-void CipherApp::execute(const std::string &action)
+void CipherApp::executeCommand(const std::string& command, const std::vector<std::string>& args)
 {
-    if (action == "encrypt")
+    if (command == "encrypt")
     {
         encrypt();
     }
-    else if (action == "decrypt")
+    else if (command == "decrypt")
     {
         decrypt();
     }

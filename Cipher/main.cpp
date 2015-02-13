@@ -10,9 +10,10 @@ int main(int argc, char** argv)
     
     if (argc >= 2)
     {
-        std::string action(argv[1]);
+        std::string command(argv[1]);
+        std::vector<std::string> args;
         
-        app.execute(action);
+        app.executeCommand(command, args);
         
         return 0;
     }

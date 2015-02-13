@@ -4,6 +4,8 @@
 
 // STD.
 #include <string>
+#include <vector>
+
 
 // Forward declarations.
 class UI;
@@ -14,7 +16,7 @@ public:
     
     CipherApp(UI* ui);
     
-    void execute(const std::string& action);
+    void executeCommand(const std::string& command, const std::vector<std::string>& args);
     void showHelp() const;
     
 private:

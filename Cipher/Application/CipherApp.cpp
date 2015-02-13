@@ -5,9 +5,6 @@
 #include "UI/UI.h"
 #include "IO/FileIO.h"
 
-// STD.
-#include <iostream>
-
 CipherApp::CipherApp(UI* ui)
 : ui(ui)
 {

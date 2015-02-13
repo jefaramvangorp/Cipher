@@ -17,12 +17,12 @@ void TextBasedUI::displayInfoMessage(const std::string& message)
 
 void TextBasedUI::displayErrorMessage(const std::string& message)
 {
-    fprintf(stderr, "%s\n", message.c_str());
+    fprintf(stderr, "Error: %s\n", message.c_str());
 }
             
 std::string TextBasedUI::getTextFromUser(const std::string& message)
 {
-    fprintf(stdout, "%s ", message.c_str());
+    fprintf(stdout, "> %s ", message.c_str());
     std::string key;
     std::getline(std::cin, key);
     return key;

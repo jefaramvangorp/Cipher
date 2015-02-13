@@ -34,12 +34,21 @@ void CipherApp::encrypt()
     std::string key = this->ui->getTextFromUser("Enter key:");
     
     std::string message;
-    FileIO::readTextFile(file_name.c_str(), &message);
+    bool read_ok = FileIO::readTextFile(file_name.c_str(), &message);
+    if (!read_ok)
+    {
+        this->ui->displayErrorMessage("Unable to read file: " + file_name);
+        return;
+    }
     
     VigenereCipher cipher(key);
     std::string encrypted_message = cipher.encrypt(message);
     
-    FileIO::writeTextFile(file_name, encrypted_message);
+    bool write_ok = FileIO::writeTextFile(file_name, encrypted_message);
+    if (!write_ok)
+    {
+        this->ui->displayErrorMessage("Unable to write file: " + file_name);
+    }
 }
 
 void CipherApp::decrypt()
@@ -48,12 +57,22 @@ void CipherApp::decrypt()
     std::string key = this->ui->getTextFromUser("Enter key:");
     
     std::string message;
-    FileIO::readTextFile(file_name, &message);
+    bool read_ok = FileIO::readTextFile(file_name, &message);
+    if (!read_ok)
+    {
+        this->ui->displayErrorMessage("Unable to read file: " + file_name);
+        return;
+    }
+
     
     VigenereCipher cipher(key);
     std::string decrypted_message = cipher.decrypt(message);
     
-    FileIO::writeTextFile(file_name, decrypted_message);
+    bool write_ok = FileIO::writeTextFile(file_name, decrypted_message);
+    if (!write_ok)
+    {
+        this->ui->displayErrorMessage("Unable to write file: " + file_name);
+    }
 }
 
 void CipherApp::showHelp() const

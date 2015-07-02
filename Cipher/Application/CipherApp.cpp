@@ -5,6 +5,27 @@
 #include "UI/UI.h"
 #include "IO/FileIO.h"
 
+// STD.
+#include <ctime>
+#include <sstream>
+
+
+// --------------------------------------------------------------------------------
+// PRIVATE HELPER FUNCTIONS
+
+namespace
+{
+    std::string durationMessage(const clock_t& start, const clock_t& end)
+    {
+        std::stringstream stream;
+        stream << "Duration: " << (1000 * (end-start)/CLOCKS_PER_SEC)<< " ms";
+        return stream.str();
+    }
+}
+
+
+// --------------------------------------------------------------------------------
+
 CipherApp::CipherApp(UI* ui)
 : ui(ui)
 {
@@ -15,11 +36,23 @@ void CipherApp::executeCommand(const std::string& command, const std::vector<std
 {
     if (command == "encrypt")
     {
+        clock_t start = clock();
+        
         encrypt();
+        
+        clock_t end = clock();
+        
+        this->ui->displayInfoMessage( durationMessage(start, end) );
     }
     else if (command == "decrypt")
     {
+        clock_t start = clock();
+        
         decrypt();
+        
+        clock_t end = clock();
+        
+        this->ui->displayInfoMessage( durationMessage(start, end) );
     }
     else
     {
@@ -63,7 +96,6 @@ void CipherApp::decrypt()
         this->ui->displayErrorMessage("Unable to read file: " + file_name);
         return;
     }
-
     
     VigenereCipher cipher(key);
     std::string decrypted_message = cipher.decrypt(message);

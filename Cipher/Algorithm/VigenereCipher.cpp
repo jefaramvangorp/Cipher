@@ -33,8 +33,9 @@ namespace {
 
 
 VigenereCipher::VigenereCipher(const std::string& key)
-: key(key)
-, table(buildVigenereTable())
+    : Cipher()
+    , key(key)
+    , table(buildVigenereTable())
 {
 
 }

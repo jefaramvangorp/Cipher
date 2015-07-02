@@ -11,10 +11,13 @@
 
 
 // --------------------------------------------------------------------------------
-// PRIVATE HELPER FUNCTIONS
+// PRIVATE HELPER FUNCTIONS AND CONSTANTS
 
 namespace
 {
+    const int SUCCESS = 0;
+    const int FAILURE = -1;
+    
     std::string durationMessage(const clock_t& start, const clock_t& end)
     {
         std::stringstream stream;
@@ -27,87 +30,87 @@ namespace
 // --------------------------------------------------------------------------------
 
 CipherApp::CipherApp(UI* ui)
-: ui(ui)
+    : ui(ui)
 {
     
 }
 
-void CipherApp::executeCommand(const std::string& command, const std::vector<std::string>& args)
+int CipherApp::executeCommand(const std::string& command, const std::vector<std::string>& args)
 {
-    if (command == "encrypt")
+    if (isValidCommand(command, args))
     {
+        std::string file_name = args[0];
+        std::string key = args[1];
+
         clock_t start = clock();
         
-        encrypt();
+        if (command == "encrypt")
+        {
+            encrypt(file_name, key);
+        }
+        else // Can only be "decrypt"
+        {
+            decrypt(file_name, key);
+        }
         
         clock_t end = clock();
-        
         this->ui->displayInfoMessage( durationMessage(start, end) );
-    }
-    else if (command == "decrypt")
-    {
-        clock_t start = clock();
         
-        decrypt();
-        
-        clock_t end = clock();
-        
-        this->ui->displayInfoMessage( durationMessage(start, end) );
+        return SUCCESS;
     }
     else
     {
         showHelp();
+        return FAILURE;
     }
-
 }
 
-void CipherApp::encrypt()
+bool CipherApp::isValidCommand(const std::string& command, const std::vector<std::string>& args)
 {
-    std::string file_name = this->ui->getTextFromUser("File:");
-    std::string key = this->ui->getTextFromUser("Enter key:");
-    
+    return (command == "encrypt" || command == "decrypt") && args.size() >= 2;
+}
+
+void CipherApp::encrypt(const std::string& fileName, const std::string& key)
+{
     std::string message;
-    bool read_ok = FileIO::readTextFile(file_name.c_str(), &message);
+    bool read_ok = FileIO::readTextFile(fileName.c_str(), &message);
     if (!read_ok)
     {
-        this->ui->displayErrorMessage("Unable to read file: " + file_name);
+        this->ui->displayErrorMessage("Unable to read file: " + fileName);
         return;
     }
     
     VigenereCipher cipher(key);
     std::string encrypted_message = cipher.encrypt(message);
     
-    bool write_ok = FileIO::writeTextFile(file_name, encrypted_message);
+    bool write_ok = FileIO::writeTextFile(fileName, encrypted_message);
     if (!write_ok)
     {
-        this->ui->displayErrorMessage("Unable to write file: " + file_name);
+        this->ui->displayErrorMessage("Unable to write file: " + fileName);
     }
 }
 
-void CipherApp::decrypt()
+void CipherApp::decrypt(const std::string& fileName, const std::string& key)
 {
-    std::string file_name = this->ui->getTextFromUser("File:");
-    std::string key = this->ui->getTextFromUser("Enter key:");
-    
     std::string message;
-    bool read_ok = FileIO::readTextFile(file_name, &message);
+    bool read_ok = FileIO::readTextFile(fileName, &message);
     if (!read_ok)
     {
-        this->ui->displayErrorMessage("Unable to read file: " + file_name);
+        this->ui->displayErrorMessage("Unable to read file: " + fileName);
         return;
     }
     
     VigenereCipher cipher(key);
     std::string decrypted_message = cipher.decrypt(message);
     
-    bool write_ok = FileIO::writeTextFile(file_name, decrypted_message);
+    bool write_ok = FileIO::writeTextFile(fileName, decrypted_message);
     if (!write_ok)
     {
-        this->ui->displayErrorMessage("Unable to write file: " + file_name);
+        this->ui->displayErrorMessage("Unable to write file: " + fileName);
     }
 }
 
 void CipherApp::showHelp() const
 {
-    this->ui->displayErrorMessage("Usage: Cipher <encrypt|decrypt>");       
+    this->ui->displayInfoMessage("Usage: Cipher <encrypt|decrypt> <filename> <key>");
 }

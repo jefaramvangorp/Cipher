@@ -16,13 +16,15 @@ public:
     
     CipherApp(UI* ui);
     
-    void executeCommand(const std::string& command, const std::vector<std::string>& args);
+    int executeCommand(const std::string& command, const std::vector<std::string>& args);
     void showHelp() const;
     
 private:
     
-    void encrypt();
-    void decrypt();
+    bool isValidCommand(const std::string& command, const std::vector<std::string>& args);
+    
+    void encrypt(const std::string& fileName, const std::string& key);
+    void decrypt(const std::string& fileName, const std::string& key);
     
     UI* ui;
 };

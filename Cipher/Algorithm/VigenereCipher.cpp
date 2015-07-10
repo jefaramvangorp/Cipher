@@ -9,7 +9,7 @@
 #include <sstream>
 
 // Constants.
-#define ALPHABET_SIZE 128 // the entire fixed ascii range (TODO make sure this is always the same!).
+#define ALPHABET_SIZE 128 // the entire fixed ascii range.
 
 namespace {
     
